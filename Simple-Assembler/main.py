@@ -1,15 +1,39 @@
 import sys
 
 complete_input = sys.stdin.read()
-//asdsadas
+
 memory = {}
 queue=[]
 registers=[0,0,0,0,0,0,0]
 
+
+opcodes = {
+    "add": "00000",
+    "sub": "00001",
+    "mov": "00010",
+    "ld": "00100",
+    "st": "00101",
+    "mul": "00110",
+    "div": "00111",
+    "rs": "01000",
+    "ls": "01001",
+    "xor": "01010",
+    "or": "01011",
+    "and": "01100",
+    "not": "01101",
+    "cmp": "01110",
+    "jmp": "01111",
+    "jlt": "10000",
+    "jgt": "10001",
+    "je": "10010",
+    "hlt": "10011"
+}
+
+
 operators=["add","sub","mov","ld", "st",
             "mul", "div", "rs", "ls","xor",
             "or", "and", "not","cmp", "jmp",
-            "jlt", "jgt", "je", "hlt"]
+            "jlt", "jgt", "je"]
 
 temp=[]
 temp2 = ""
@@ -27,28 +51,52 @@ memory_counter=0
 
 error = -1
 
+hlt_counter=0
+
 for line in temp:
     line = str(line)
     if line=="":
         continue
     lis = line.split()
     if lis[0] in operators:
-        memory[memory_counter]=line
+        memory[memory_counter]=[line, "operator"]
         memory_counter+=1
     elif lis[0]=="var":
         queue.append(line)
+    elif lis[0][-1]==":":
+        memory[memory_counter]=[line, "label"]
+        memory_counter+=1
+    elif lis[0]=="hlt":
+        memory[memory_counter]=[line,"halt"]
+        memory_counter+=1
+        hlt_counter+=1
     else:
         error = 0
 
-if error!=-1 or (list(memory.values())[-1].split()[0])!="hlt" or (list(memory.values()).count("hlt"))>1:
-    print("ERROR")
+
+if error!=-1 or list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
+    print("ERROR with hlt")
 else:
     print("OK")
 
+memory.values()
+
 for i in queue:
-    memory[memory_counter] =  i
+    memory[memory_counter] =  [i, "variable"]
     memory_counter+=1
 
+# x = "{:03b}".format(2)
+# print(type(x))
+
 for i in memory.keys():
-    print(i, end=" ")
-    print(memory[i])
+    ans=""
+    inp = memory[i]
+    if list(inp[0].split())[0] == "add":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["add"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for add")
