@@ -1,7 +1,7 @@
 import sys
 
 complete_input = sys.stdin.read()
-
+//asdsadas
 memory = {}
 queue=[]
 registers=[0,0,0,0,0,0,0]
