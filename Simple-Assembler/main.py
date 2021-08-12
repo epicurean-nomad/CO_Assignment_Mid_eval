@@ -100,3 +100,63 @@ for i in memory.keys():
             print(ans)
         else:
             print("ERROR: Not correct arguments for add")
+    elif list(inp[0].split())[0] == "mul":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["mul"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for multiplication")
+    elif list(inp[0].split())[0] == "div":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["div"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for division")
+    elif list(inp[0].split())[0] == "not":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["not"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise NOT")
+    elif list(inp[0].split())[0] == "cmp":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["cmp"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments to compare")            
+    elif list(inp[0].split())[0] == "and":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["and"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise AND")
+    elif list(inp[0].split())[0] == "or":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["or"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise OR")            
+    elif list(inp[0].split())[0] == "xor":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["xor"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise XOR")         
