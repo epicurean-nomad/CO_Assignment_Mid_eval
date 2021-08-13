@@ -319,42 +319,86 @@ for i in memory.keys():
             print(ans)
         else:
             print("ERROR: Not correct arguments for jmp")            
-
-
     elif list(inp[0].split())[0] == "jlt":
-        if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
-            print("ERROR: Invalid Memory Address")
-            break
-        if len(list(inp[0].split()))==3:
+        tempp = list(inp[0].split())[1]
+        if len(list(inp[0].split()))==2:
+            maddr=-1
+            for j in memory.keys():
+                if list(memory[j][0].split())[0][0:-1]==tempp:
+                    maddr=j
+            if maddr==-1:
+                print("label not found")
+                continue
             ans+=opcodes["jlt"]+"0"*3
-            ans += inp[0].split()[1]
+            ans +="{:08b}".format(maddr)
             print(ans)
         else:
             print("ERROR: Not correct arguments for jlt")
-
-
-    elif list(inp[0].split())[0] == "jg":
-        if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
-            print("ERROR: Invalid Memory Address")
-            break
-        if len(list(inp[0].split()))==3:
-            ans+=opcodes["jg"]+"0"*3
-            ans += inp[0].split()[1]
+    elif list(inp[0].split())[0] == "jgt":
+        tempp = list(inp[0].split())[1]
+        if len(list(inp[0].split()))==2:
+            maddr=-1
+            for j in memory.keys():
+                if list(memory[j][0].split())[0][0:-1]==tempp:
+                    maddr=j
+            if maddr==-1:
+                print("label not found")
+                continue
+            ans+=opcodes["jgt"]+"0"*3
+            ans +="{:08b}".format(maddr)
             print(ans)
         else:
-            print("ERROR: Not correct arguments for jg")
-
-
+            print("ERROR: Not correct arguments for jgt")              
     elif list(inp[0].split())[0] == "je":
-        if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
-            print("ERROR: Invalid Memory Address")
-            break
-        if len(list(inp[0].split()))==3:
+        tempp = list(inp[0].split())[1]
+        if len(list(inp[0].split()))==2:
+            maddr=-1
+            for j in memory.keys():
+                if list(memory[j][0].split())[0][0:-1]==tempp:
+                    maddr=j
+            if maddr==-1:
+                print("label not found")
+                continue
             ans+=opcodes["je"]+"0"*3
-            ans += inp[0].split()[1]
+            ans +="{:08b}".format(maddr)
             print(ans)
         else:
             print("ERROR: Not correct arguments for je")
+
+#     elif list(inp[0].split())[0] == "jlt":
+#         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
+#             print("ERROR: Invalid Memory Address")
+#             break
+#         if len(list(inp[0].split()))==3:
+#             ans+=opcodes["jlt"]+"0"*3
+#             ans += inp[0].split()[1]
+#             print(ans)
+#         else:
+#             print("ERROR: Not correct arguments for jlt")
+
+
+#     elif list(inp[0].split())[0] == "jg":
+#         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
+#             print("ERROR: Invalid Memory Address")
+#             break
+#         if len(list(inp[0].split()))==3:
+#             ans+=opcodes["jg"]+"0"*3
+#             ans += inp[0].split()[1]
+#             print(ans)
+#         else:
+#             print("ERROR: Not correct arguments for jg")
+
+
+#     elif list(inp[0].split())[0] == "je":
+#         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
+#             print("ERROR: Invalid Memory Address")
+#             break
+#         if len(list(inp[0].split()))==3:
+#             ans+=opcodes["je"]+"0"*3
+#             ans += inp[0].split()[1]
+#             print(ans)
+#         else:
+#             print("ERROR: Not correct arguments for je")
             
 
     elif list(inp[0].split())[0] == "hlt":
