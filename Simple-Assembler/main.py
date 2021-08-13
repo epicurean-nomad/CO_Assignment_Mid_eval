@@ -82,10 +82,10 @@ if error!=-1:
 if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1: #I separated the first OR condition to give it a different Error Message
     print("ERROR with hlt")
 
-else:
-    print("OK")
+#else:
+    #print("OK")
 
-memory.values()
+#memory.values()
 
  #x = "{:03b}".format(2)
  #print(type(x))
@@ -114,7 +114,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for add\n")
 
-    if list(inp[0].split())[0] == "sub":
+
+    elif list(inp[0].split())[0] == "sub":
         f = 0
         for i in range(1,4):
             reg_val = int(inp[0].split()[i][1:])
@@ -134,7 +135,79 @@ for i in memory.keys():
             print("ERROR: Not correct arguments for sub")
 
 
-    if list(inp[0].split())[0] == "mov":
+    elif list(inp[0].split())[0] == "mul":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["mul"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for multiplication")
+
+
+    elif list(inp[0].split())[0] == "div":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["div"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for division")
+
+
+    elif list(inp[0].split())[0] == "not":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["not"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise NOT")
+    elif list(inp[0].split())[0] == "cmp":
+        if len(list(memory[i][0].split()))==3:
+            ans+=opcodes["cmp"]+"00000"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments to compare")        
+
+
+    elif list(inp[0].split())[0] == "and":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["and"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise AND")
+
+
+    elif list(inp[0].split())[0] == "or":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["or"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise OR")       
+
+
+    elif list(inp[0].split())[0] == "xor":
+        if len(list(memory[i][0].split()))==4:
+            ans+=opcodes["xor"]+"00"
+            ans+="{:03b}".format(int(list(memory[i][0].split())[1][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[2][1]))
+            ans+="{:03b}".format(int(list(memory[i][0].split())[3][1]))
+            print(ans)
+        else:
+            print("ERROR: Not correct arguments for bitwise XOR")
+
+
+    elif list(inp[0].split())[0] == "mov":
         if inp[0].split()[2][0] == "$":
             if int(inp[0].split()[1][1:]) not in range(7):
                 print("ERROR: Wrong argument for register")
@@ -146,7 +219,8 @@ for i in memory.keys():
                     print(ans)
             else:
                     print("ERROR: Not correct arguments for mov")
-        if inp[0].split()[2][0] == "R":
+
+        elif inp[0].split()[2][0] == "R":
             if int(inp[0].split()[1][1:]) not in range(7) or int(inp[0].split()[2][1:]) not in range(7):
                 print("ERROR: Wrong argument for register")
                 break
@@ -161,7 +235,8 @@ for i in memory.keys():
         else:
             print("ERROR: Invalid 2nd argument")
 
-    if list(inp[0].split())[0] == "ld":
+
+    elif list(inp[0].split())[0] == "ld":
         if len(inp[0].split()[2]) != 8 or set(inp[0].split()[2]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -176,7 +251,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for sub")
 
-    if list(inp[0].split())[0] == "st":
+
+    elif list(inp[0].split())[0] == "st":
         if len(inp[0].split()[2]) != 8 or set(inp[0].split()[2]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -191,7 +267,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for sub")
 
-    if list(inp[0].split())[0] == "rs":
+
+    elif list(inp[0].split())[0] == "rs":
         if int(inp[0].split()[1][1:]) not in range(7):
             print("ERROR: Wrong argument for register")
             break
@@ -203,7 +280,8 @@ for i in memory.keys():
         else:
                 print("ERROR: Not correct arguments for rs")
 
-    if list(inp[0].split())[0] == "ls":
+
+    elif list(inp[0].split())[0] == "ls":
         if int(inp[0].split()[1][1:]) not in range(7):
             print("ERROR: Wrong argument for register")
             break
@@ -215,7 +293,8 @@ for i in memory.keys():
         else:
                 print("ERROR: Not correct arguments for ls")
 
-    if list(inp[0].split())[0] == "jmp":
+
+    elif list(inp[0].split())[0] == "jmp":
         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -226,7 +305,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for jmp")
 
-    if list(inp[0].split())[0] == "jlt":
+
+    elif list(inp[0].split())[0] == "jlt":
         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -237,7 +317,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for jlt")
 
-    if list(inp[0].split())[0] == "jg":
+
+    elif list(inp[0].split())[0] == "jg":
         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -248,7 +329,8 @@ for i in memory.keys():
         else:
             print("ERROR: Not correct arguments for jg")
 
-    if list(inp[0].split())[0] == "je":
+
+    elif list(inp[0].split())[0] == "je":
         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
             print("ERROR: Invalid Memory Address")
             break
@@ -258,6 +340,8 @@ for i in memory.keys():
             print(ans)
         else:
             print("ERROR: Not correct arguments for je")
+            
 
-    if list(inp[0].split())[0] == "hlt":
+    elif list(inp[0].split())[0] == "hlt":
         ans+=opcodes["hlt"]+"0"*11
+        print(ans)
