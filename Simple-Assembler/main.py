@@ -294,16 +294,31 @@ for i in memory.keys():
                 print("ERROR: Not correct arguments for ls")
 
 
+#     elif list(inp[0].split())[0] == "jmp":
+#         if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
+#             print("ERROR: Invalid Memory Address")
+#             break
+#         if len(list(inp[0].split()))==3:
+#             ans+=opcodes["jmp"]+"0"*3
+#             ans += inp[0].split()[1]
+#             print(ans)
+#         else:
+#             print("ERROR: Not correct arguments for jmp")
     elif list(inp[0].split())[0] == "jmp":
-        if len(inp[0].split()[1]) != 8 or set(inp[0].split()[1]) != {'0','1'}:
-            print("ERROR: Invalid Memory Address")
-            break
-        if len(list(inp[0].split()))==3:
+        tempp = list(inp[0].split())[1]
+        if len(list(inp[0].split()))==2:
+            maddr=-1
+            for j in memory.keys():
+                if list(memory[j][0].split())[0][0:-1]==tempp:
+                    maddr=j
+            if maddr==-1:
+                print("label not found")
+                continue
             ans+=opcodes["jmp"]+"0"*3
-            ans += inp[0].split()[1]
+            ans +="{:08b}".format(maddr)
             print(ans)
         else:
-            print("ERROR: Not correct arguments for jmp")
+            print("ERROR: Not correct arguments for jmp")            
 
 
     elif list(inp[0].split())[0] == "jlt":
