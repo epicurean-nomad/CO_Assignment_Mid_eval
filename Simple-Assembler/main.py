@@ -81,8 +81,16 @@ for line in temp:
 # if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
 #     error=1
 
+error2=0
+
 if error!=0:
     print("ERROR with hlt")
+    
+if memory_counter>256:
+    error=1
+    error2=1
+    print("Memory error")
+    
 
 for i in queue:
     memory[memory_counter] =  [i, "variable"]
@@ -90,7 +98,6 @@ for i in queue:
 
 big_ans = []
 
-error2=0
 for i in memory.keys():
     if(error ==1 or error2 ==1):
         break
