@@ -55,7 +55,7 @@ hlt_counter=0
 
 for line in temp:
     line = str(line)
-    if line=="":
+    if not line or line.isspace():
         continue
     lis = line.split()
     if hlt_counter>0:
