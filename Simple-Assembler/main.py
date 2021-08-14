@@ -80,6 +80,9 @@ for line in temp:
 
 # if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
 #     error=1
+if hlt_counter!=1:
+    error2=1
+    error=1
 
 error2=0
 
