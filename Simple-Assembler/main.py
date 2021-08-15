@@ -89,6 +89,7 @@ for line in temp:
 
 # if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
 #     error=1
+
 if hlt_counter==0:
     print("Missing hlt instruction")
     error2=1
@@ -110,20 +111,33 @@ big_ans = []
 
 
 for i in memory.keys():
-    if(error ==1 or error2 ==1):
-        break
+    
     ans=""
     inp = memory[i]
     index = 0
+    if list(inp[0].split())[index] != "mov":
+        for k in list(memory[i][0].split()[1:]):
+            if k=="flags" or k=="FLAGS":
+                print("Illegal use of FLAGS")
+                error2=1
+    if(error ==1 or error2 ==1):
+        break
+    
 
     if list(inp[0].split())[index] == "add":
         f = 0
         for i in range(1,4):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2=1    
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2=1    
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -141,12 +155,19 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "sub":
         f = 0
         for i in range(1,4):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
+
         if f == 1:
             break
         if len(list(inp[0].split()))==4:
@@ -161,15 +182,22 @@ for i in memory.keys():
 
     elif list(inp[0].split())[index] == "mul":
         f = 0
-        for i in range(1,4):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+        for j in range(1,4):
+            try:
+                reg_val = int(inp[0].split()[j][1:])
+                if reg_val not in range(7) or inp[0].split()[j][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
+        #print(list(memory[i][0].split()))
         if len(list(memory[i][0].split()))==4:
             ans+=opcodes["mul"]+"00"
             ans+="{:03b}".format(int(inp[0].split()[1][1]))
@@ -184,11 +212,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "div":
         f = 0
         for i in range(1,4):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -205,11 +239,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "not":
         f = 0
         for i in range(1,3):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -224,11 +264,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "cmp":
         f = 0
         for i in range(1,3):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -245,11 +291,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "and":
         f = 0
         for i in range(1,3):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -267,11 +319,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "or":
         f = 0
         for i in range(1,3):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -289,11 +347,17 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "xor":
         f = 0
         for i in range(1,3):
-            reg_val = int(inp[0].split()[i][1:])
-            if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+            try:
+                reg_val = int(inp[0].split()[i][1:])
+                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                    print("Typos in register name")
+                    error2 =1
+                    f = 1
+                    break
+            except:
                 print("Typos in register name")
-                error2 =1
-                f = 1
+                error2=1
+                f=1
                 break
         if f == 1:
             break
@@ -310,7 +374,12 @@ for i in memory.keys():
 
     elif list(inp[0].split())[index] == "mov":
         if inp[0].split()[2][0] == "$":
-            if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+            try:
+                if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+                    print("Typos in register name")
+                    error2=1
+                    break
+            except:
                 print("Typos in register name")
                 error2=1
                 break
@@ -327,7 +396,12 @@ for i in memory.keys():
                     print("Wrong syntax used for MOV instruction")
 
         elif inp[0].split()[2][0] == "R":
-            if inp[0].split()[1][0]!='R' or inp[0].split()[2][0]!='R' or int(inp[0].split()[1][1:]) not in range(7) or int(inp[0].split()[2][1:]) not in range(7):
+            try:
+                if inp[0].split()[1][0]!='R' or inp[0].split()[2][0]!='R' or int(inp[0].split()[1][1:]) not in range(7) or int(inp[0].split()[2][1:]) not in range(7):
+                    print("Typos in register name")
+                    error2=1
+                    break
+            except:
                 print("Typos in register name")
                 error2=1
                 break
@@ -341,7 +415,12 @@ for i in memory.keys():
                     print("Wrong syntax used for MOV instruction")
                     error2=1
         elif inp[0].split()[2] == "FLAGS":
-            if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+            try:
+                if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+                    print("Typos in register name")
+                    error2=1
+                    break
+            except:
                 print("Typos in register name")
                 error2=1
                 break
@@ -355,9 +434,14 @@ for i in memory.keys():
 
 
     elif list(inp[0].split())[index] == "ld":
-        if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+        try:
+            if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+                print("Typos in register name")
+                error2=1
+        except:
             print("Typos in register name")
             error2=1
+            break
         ans+=opcodes["ld"]
         ans+="{:03b}".format(int(inp[0].split()[1][1]))
         found = 0
@@ -372,9 +456,14 @@ for i in memory.keys():
 
 
     elif list(inp[0].split())[index] == "st":
-        if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+        try:
+            if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
+                print("Typos in register name")
+                error2=1
+        except:
             print("Typos in register name")
             error2=1
+            break
         ans+=opcodes["st"]
         ans+="{:03b}".format(int(inp[0].split()[1][1]))
         found=0
@@ -389,7 +478,12 @@ for i in memory.keys():
 
 
     elif list(inp[0].split())[index] == "rs":
-        if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
+        try:
+            if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
+                print("Typos in register name")
+                error2=1
+                break
+        except:
             print("Typos in register name")
             error2=1
             break
@@ -408,7 +502,12 @@ for i in memory.keys():
 
 
     elif list(inp[0].split())[index] == "ls":
-        if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
+        try:
+            if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
+                print("Typos in register name")
+                error2=1
+                break
+        except:
             print("Typos in register name")
             error2=1
             break
@@ -431,7 +530,7 @@ for i in memory.keys():
         if len(list(inp[0].split()))==2:
             maddr=-1
             for j in memory.keys():
-                if memory[j][1]=="label" and memory[j][2]==tempp:
+                if (memory[j][1]=="label" and memory[j][2]==tempp) or '{:08b}'.format(j) == tempp:
                     maddr = j
             if maddr==-1:
                 print("Use of undefined labels")
