@@ -111,6 +111,7 @@ big_ans = []
 
 
 for i in memory.keys():
+    key_count = i
     
     ans=""
     inp = memory[i]
@@ -130,12 +131,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2=1    
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -148,7 +149,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for add instruction")
+            print("Wrong syntax used for add instruction at line {}".format(key_count+var_start))
             error2=1
 
 
@@ -158,12 +159,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -177,7 +178,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for sub instruction")
+            print("Wrong syntax used for sub instruction at line {}".format(key_count+var_start))
             error2=1
 
     elif list(inp[0].split())[index] == "mul":
@@ -186,12 +187,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[j][1:])
                 if reg_val not in range(7) or inp[0].split()[j][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -205,7 +206,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for mul instruction")
+            print("Wrong syntax used for mul instruction at line {}".format(key_count+var_start))
             error2=1
 
 
@@ -215,12 +216,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -232,7 +233,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[2][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for div instruction")
+            print("Wrong syntax used for div instruction at line {}".format(key_count+var_start))
             error2=1
 
 
@@ -242,12 +243,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -267,12 +268,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -284,7 +285,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[2][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for CMP instruction")
+            print("Wrong syntax used for CMP instruction at line {}".format(key_count+var_start))
             error2=1   
 
 
@@ -294,12 +295,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -312,7 +313,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for AND instruction")
+            print("Wrong syntax used for AND instruction at line {}".format(key_count+var_start))
             error2=1
 
 
@@ -322,12 +323,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -340,7 +341,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for OR instruction")  
+            print("Wrong syntax used for OR instruction at line {}".format(key_count+var_start))  
             error2=1     
 
 
@@ -350,12 +351,12 @@ for i in memory.keys():
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 f=1
                 break
@@ -368,7 +369,7 @@ for i in memory.keys():
             ans+="{:03b}".format(int(inp[0].split()[3][1]))
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for XOR instruction")
+            print("Wrong syntax used for XOR instruction at line {}".format(key_count+var_start))
             error2=1
 
 
@@ -376,16 +377,16 @@ for i in memory.keys():
         if inp[0].split()[2][0] == "$":
             try:
                 if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2=1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 break
             if len(list(inp[0].split()))==3:
                     if(int(inp[0].split()[2][1:])<0 or int(inp[0].split()[2][1:])>255):
-                        print("Illegal Immediate value")
+                        print("Illegal Immediate value at line {}".format(key_count+var_start))
                         error2=1
                         break
                     ans+=opcodes["mov_imm"]
@@ -393,16 +394,16 @@ for i in memory.keys():
                     ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                     big_ans.append(ans)
             else:
-                    print("Wrong syntax used for MOV instruction")
+                    print("Wrong syntax used for MOV instruction at line {}".format(key_count+var_start))
 
         elif inp[0].split()[2][0] == "R":
             try:
                 if inp[0].split()[1][0]!='R' or inp[0].split()[2][0]!='R' or int(inp[0].split()[1][1:]) not in range(7) or int(inp[0].split()[2][1:]) not in range(7):
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2=1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 break
 
@@ -412,16 +413,16 @@ for i in memory.keys():
                     ans+="{:03b}".format(int(inp[0].split()[2][1]))
                     big_ans.append(ans)
             else:
-                    print("Wrong syntax used for MOV instruction")
+                    print("Wrong syntax used for MOV instruction at line {}".format(key_count+var_start))
                     error2=1
         elif inp[0].split()[2] == "FLAGS":
             try:
                 if inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
-                    print("Typos in register name")
+                    print("Typos in register name at line {}".format(key_count+var_start))
                     error2=1
                     break
             except:
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 break
             ans+=opcodes["mov_reg"]+"0"*5
@@ -429,17 +430,17 @@ for i in memory.keys():
             ans+="111"
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for MOV instruction")
+            print("Wrong syntax used for MOV instruction at line {}".format(key_count+var_start))
             error2=1
 
 
     elif list(inp[0].split())[index] == "ld":
         try:
             if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
         except:
-            print("Typos in register name")
+            print("Typos in register name at line {}".format(key_count+var_start))
             error2=1
             break
         ans+=opcodes["ld"]
@@ -450,7 +451,7 @@ for i in memory.keys():
                 found=1
                 ans+="{:08b}".format(j)
         if found ==0:
-            print("Use of undefined variables")
+            print("Use of undefined variables at line {}".format(key_count+var_start))
             error2=1
         big_ans.append(ans)
 
@@ -458,10 +459,10 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "st":
         try:
             if len((list(inp[0].split())))!=3 or inp[0].split()[1][0]!='R' or int(inp[0].split()[1][1:]) not in range(7):
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
         except:
-            print("Typos in register name")
+            print("Typos in register name at line {}".format(key_count+var_start))
             error2=1
             break
         ans+=opcodes["st"]
@@ -472,7 +473,7 @@ for i in memory.keys():
                 found=1
                 ans+="{:08b}".format(j)
         if found ==0:
-            print("Use of undefined variables")
+            print("Use of undefined variables at line {}".format(key_count+var_start))
             error2=1
         big_ans.append(ans)
 
@@ -480,16 +481,16 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "rs":
         try:
             if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 break
         except:
-            print("Typos in register name")
+            print("Typos in register name at line {}".format(key_count+var_start))
             error2=1
             break
         if len(list(inp[0].split()))==3:
                 if(int(inp[0].split()[2][1:])<0 or int(inp[0].split()[2][1:])>255):
-                    print("Illegal Immediate value")
+                    print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
                 ans+=opcodes["mov_imm"]
@@ -497,23 +498,23 @@ for i in memory.keys():
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
         else:
-                print("Wrong syntax used for RS instruction")
+                print("Wrong syntax used for RS instruction at line {}".format(key_count+var_start))
                 error2=1
 
 
     elif list(inp[0].split())[index] == "ls":
         try:
             if int(inp[0].split()[1][1:]) not in range(7) or inp[0].split()[1][0]!='R':
-                print("Typos in register name")
+                print("Typos in register name at line {}".format(key_count+var_start))
                 error2=1
                 break
         except:
-            print("Typos in register name")
+            print("Typos in register name at line {}".format(key_count+var_start))
             error2=1
             break
         if len(list(inp[0].split()))==3:
                 if(int(inp[0].split()[2][1:])<0 or int(inp[0].split()[2][1:])>255):
-                    print("Illegal Immediate value")
+                    print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
                 ans+=opcodes["mov_imm"]
@@ -521,7 +522,7 @@ for i in memory.keys():
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
         else:
-                print("Wrong syntax used for LS instruction")
+                print("Wrong syntax used for LS instruction at line {}".format(key_count+var_start))
                 error2=1
 
 
@@ -533,14 +534,14 @@ for i in memory.keys():
                 if (memory[j][1]=="label" and memory[j][2]==tempp) or '{:08b}'.format(j) == tempp:
                     maddr = j
             if maddr==-1:
-                print("Use of undefined labels")
+                print("Use of undefined labels at line {}".format(key_count+var_start))
                 error2=1
                 continue
             ans+=opcodes["jmp"]+"0"*3
             ans +="{:08b}".format(maddr)
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for jmp instruction")            
+            print("Wrong syntax used for jmp instruction at line {}".format(key_count+var_start))            
             error2=1
     elif list(inp[0].split())[index] == "jlt":
         tempp = list(inp[0].split())[1]
@@ -550,14 +551,14 @@ for i in memory.keys():
                 if memory[j][1]=="label" and memory[j][2]==tempp:
                     maddr = j
             if maddr==-1:
-                print("Use of undefined labels")
+                print("Use of undefined labels at line {}".format(key_count+var_start))
                 error2=1
                 continue
             ans+=opcodes["jlt"]+"0"*3
             ans +="{:08b}".format(maddr)
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for jlt instruction")
+            print("Wrong syntax used for jlt instruction at line {}".format(key_count+var_start))
             error2=1
     elif list(inp[0].split())[index] == "jgt":
         tempp = list(inp[0].split())[1]
@@ -567,14 +568,14 @@ for i in memory.keys():
                 if memory[j][1]=="label" and memory[j][2]==tempp:
                     maddr = j
             if maddr==-1:
-                print("Use of undefined labels")
+                print("Use of undefined labels at line {}".format(key_count+var_start))
                 error2=1
                 continue
             ans+=opcodes["jgt"]+"0"*3
             ans +="{:08b}".format(maddr)
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for jgt instruction")     
+            print("Wrong syntax used for jgt instruction at line {}".format(key_count+var_start))     
             error2=1         
 
     elif list(inp[0].split())[index] == "je":
@@ -585,14 +586,14 @@ for i in memory.keys():
                 if memory[j][1]=="label" and memory[j][2]==tempp:
                     maddr = j
             if maddr==-1:
-                print("Use of undefined labels")
+                print("Use of undefined labels at line {}".format(key_count+var_start))
                 error2=1
                 continue
             ans+=opcodes["je"]+"0"*3
             ans +="{:08b}".format(maddr)
             big_ans.append(ans)
         else:
-            print("Wrong syntax used for je instruction")
+            print("Wrong syntax used for je instruction at line {} ".format(key_count+var_start))
             error2=1
 
     elif list(inp[0].split())[index] == "hlt":
@@ -602,7 +603,7 @@ for i in memory.keys():
     elif list(inp[0].split())[index] == "var":
         pass
     else:
-        print("Typo in instruction name")
+        print("Typo in instruction name at line {}".format(key_count+var_start))
         error2=1
         break
     
