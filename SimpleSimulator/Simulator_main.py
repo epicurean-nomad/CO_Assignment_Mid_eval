@@ -25,6 +25,7 @@ def binaryToDecimal(n):
 for line in temp:
     opcode = line[:5]
     if(opcode == "00000"): #add
+        flags = [0,0,0,0]
         reg1 = line[7:10]
         reg2= line[10:13]
         reg3 = line[13:16]
