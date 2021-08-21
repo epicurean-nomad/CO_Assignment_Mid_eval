@@ -63,7 +63,7 @@ while j<len(temp):
             flags = [0,0,0,0]
             continue
         flags = [0,0,0,0]
-        if(opcode == "10011"): #halt
+    elif(opcode == "10011"): #halt
         flags = [0,0,0,0]
         print("{:08b}".format(pc), end=" ")
         for i in reg:
