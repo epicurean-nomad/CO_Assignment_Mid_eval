@@ -78,6 +78,7 @@ for line in temp:
         memory[memory_counter]=[" ".join(lis[1:]) ,"label", lis[0][:-1]]
         if len(lis)>1 and lis[1]=="hlt":
             hlt_counter+=1
+        
         memory_counter+=1
 
     elif lis[0]=="hlt":
@@ -85,7 +86,8 @@ for line in temp:
         memory_counter+=1
         hlt_counter+=1
     else:
-        error = 1
+        memory[memory_counter]=[line]
+        memory_counter+=1   
 
 # if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
 #     error=1
@@ -110,12 +112,14 @@ for i in queue:
 big_ans = []
 
 
+
 for i in memory.keys():
     key_count = i
-    
     ans=""
     inp = memory[i]
     index = 0
+    if(not inp[0]):
+        continue
     if list(inp[0].split())[index] != "mov":
         for k in list(memory[i][0].split()[1:]):
             if k=="flags" or k=="FLAGS":
@@ -126,11 +130,12 @@ for i in memory.keys():
     
 
     if list(inp[0].split())[index] == "add":
+       
         f = 0
-        for i in range(1,4):
+        for k in range(1,4):
             try:
-                reg_val = int(inp[0].split()[i][1:])
-                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                reg_val = int(inp[0].split()[k][1:])
+                if reg_val not in range(7) or inp[0].split()[k][0]!='R':
                     print("Typos in register name at line {}".format(key_count+var_start))
                     error2=1    
                     f = 1
@@ -264,10 +269,10 @@ for i in memory.keys():
             error2=1
     elif list(inp[0].split())[index] == "cmp":
         f = 0
-        for i in range(1,3):
+        for k in range(1,3):
             try:
-                reg_val = int(inp[0].split()[i][1:])
-                if reg_val not in range(7) or inp[0].split()[i][0]!='R':
+                reg_val = int(inp[0].split()[k][1:])
+                if reg_val not in range(7) or inp[0].split()[k][0]!='R':
                     print("Typos in register name at line {}".format(key_count+var_start))
                     error2 =1
                     f = 1
@@ -279,6 +284,7 @@ for i in memory.keys():
                 break
         if f == 1:
             break
+        
         if len(list(memory[i][0].split()))==3:
             ans+=opcodes["cmp"]+"00000"
             ans+="{:03b}".format(int(inp[0].split()[1][1]))
