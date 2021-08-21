@@ -2,22 +2,24 @@ import sys
 complete_input = sys.stdin.read()
 temp=[]
 temp2 = ""
+
 for char in complete_input:
     if char=='\n':
         temp.append(temp2)
         temp2=""
     else:
         temp2+=char
+
 if temp2!="":
     temp.append(temp2)
     temp2=""
+
 reg = [0,0,0,0,0,0,0]
 flags = [0,0,0,0]
 pc = 0
 
 def binaryToDecimal(n):
     return int(n,2)
-
 
 def fn(pc):
     
@@ -63,10 +65,6 @@ while j<len(temp):
         reg[reg1] = reg[reg2]
         fn(pc)
         pc+=1
-
-
-
-
 
     elif (opcode == "01111"): #jmp uncd 
         flags = [0,0,0,0]
@@ -192,7 +190,23 @@ while j<len(temp):
         reg[binaryToDecimal(reg1)] = ~(reg[binaryToDecimal(reg2)])
         fn(pc)
         pc+=1
+        
+    elif(opcode=="01001"): #ls
+        flags=[0,0,0,0]
+        reg1 = binaryToDecimal(line[5:8])
+        imm_val = binaryToDecimal(line[8:16])
+        reg[reg1] = reg[reg1]<<imm_val
+        fn(pc)
+        pc+=1
     
+    elif(opcode=="01000"): #rs
+        flags=[0,0,0,0]
+        reg1 = binaryToDecimal(line[5:8])
+        imm_val = binaryToDecimal(line[8:16])
+        reg[reg1] = reg[reg1]>>imm_val
+        fn(pc)
+        pc+=1
+        
     elif(opcode == "10011"): #halt
         flags = [0,0,0,0]
         fn(pc)
