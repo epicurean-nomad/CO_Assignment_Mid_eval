@@ -74,7 +74,7 @@ while j<len(temp):
         j+=1
         continue
 
-    elif (opcode == "10000")     :
+    elif (opcode == "10000"):   #jlt
         if flags[1]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
@@ -86,7 +86,7 @@ while j<len(temp):
         fn(pc)
         pc+=1
 
-    elif (opcode == "10001")     :
+    elif (opcode == "10001"):  #jgt
         if flags[2]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
@@ -98,7 +98,7 @@ while j<len(temp):
         fn(pc)
         pc+=1    
 
-    elif (opcode == "10010")     :
+    elif (opcode == "10010"): #je
         if flags[3]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
@@ -122,7 +122,65 @@ while j<len(temp):
         fn(pc)
         pc+=1
     
-    
+    elif(opcode == "00001"): #sub
+        flags = [0,0,0,0]
+        reg1 = line[7:10]
+        reg2= line[10:13]
+        reg3 = line[13:16]
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
+        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+            flags[0]=1
+            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+        fn(pc)
+        pc+=1
+
+    elif(opcode == "00110"): #mul
+        flags = [0,0,0,0]
+        reg1 = line[7:10]
+        reg2= line[10:13]
+        reg3 = line[13:16]
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
+        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+            flags[0]=1
+            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+        fn(pc)
+        pc+=1
+
+    elif(opcode == "01010"): #xor
+        flags = [0,0,0,0]
+        reg1 = line[7:10]
+        reg2= line[10:13]
+        reg3 = line[13:16]
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
+        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+            flags[0]=1
+            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+        fn(pc)
+        pc+=1
+        
+    elif(opcode == "01011"): #or
+        flags = [0,0,0,0]
+        reg1 = line[7:10]
+        reg2= line[10:13]
+        reg3 = line[13:16]
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
+        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+            flags[0]=1
+            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+        fn(pc)
+        pc+=1
+
+    if(opcode == "01100"): #and
+        flags = [0,0,0,0]
+        reg1 = line[7:10]
+        reg2= line[10:13]
+        reg3 = line[13:16]
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
+        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+            flags[0]=1
+            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+        fn(pc)
+        pc+=1
 
 
     elif(opcode == "10011"): #halt
