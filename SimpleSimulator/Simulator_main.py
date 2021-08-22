@@ -33,10 +33,11 @@ def fn(pc):
     print(flag_val)
     pc+=1
 
-i = 0
-while i<len(temp):  #loading entire instruction code into Memory
+for i in range(len(temp)):  #loading entire instruction code into Memory
     MEM[i] = temp[i]
-    i+=1
+    
+for i in range(len(MEM),257): # filling rest of the memory with 0's
+    MEM[i] = "0"*16
     
 while pc<len(temp):
     line = temp[pc]
@@ -216,16 +217,19 @@ while pc<len(temp):
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
         reg[reg1] = MEM[m]
+        pc+=1
 
     elif(opcode=="00101"): #st
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
         MEM[m] = reg[reg1]
+        pc+=1
 
     elif(opcode == "10011"): #halt
         flags = [0,0,0,0]
         fn(pc)
         pc+=1
 
-
+for i in MEM.keys():  # MEM.dump()
+    print(MEM[i], end="\n")
