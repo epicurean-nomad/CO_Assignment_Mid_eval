@@ -36,7 +36,7 @@ def fn(pc):
 for i in range(len(temp)):  #loading entire instruction code into Memory
     MEM[i] = temp[i]
     
-for i in range(len(MEM),257): # filling rest of the memory with 0's
+for i in range(len(MEM),256): # filling rest of the memory with 0's
     MEM[i] = "0"*16
     
 while pc<len(temp):
@@ -65,10 +65,21 @@ while pc<len(temp):
         pc+=1
 
     elif(opcode=="00011"): #mov reg
-        flags=[0,0,0,0]
+        #flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[10:13])
-        reg2 = binaryToDecimal(line[13:16])
-        reg[reg1] = reg[reg2]
+        if(line[13:]=="111"):
+            tatti = "0"*12
+            # for fu in range(1, len(flags)):
+            #     aa = flags[-fu]
+            #     tatti+=str(aa)
+            for fu in flags:
+                tatti+=str(fu)
+            reg2 = binaryToDecimal(tatti)
+            
+        else:
+            reg2 = reg[binaryToDecimal(line[13:16])]
+        flags=[0,0,0,0]
+        reg[reg1]=reg2
         fn(pc)
         pc+=1
 
@@ -119,9 +130,9 @@ while pc<len(temp):
         if(binaryToDecimal(reg1)>binaryToDecimal(reg2)):
             flags[2]=1
         elif(binaryToDecimal(reg1)==binaryToDecimal(reg2)):
-            flags[3]=1
-        else:
             flags[1]=1
+        else:
+            flags[3]=1
         fn(pc)
         pc+=1
 
@@ -130,10 +141,13 @@ while pc<len(temp):
         reg1 = line[7:10]
         reg2= line[10:13]
         reg3 = line[13:16]
-        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]-reg[binaryToDecimal(reg3)]
-        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+        if(reg[binaryToDecimal(reg2)]<reg[binaryToDecimal(reg3)]):
             flags[0]=1
-            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+            reg[binaryToDecimal(reg1)]=0
+            fn(pc)
+            pc+=1
+            continue
+        reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]-reg[binaryToDecimal(reg3)]
         fn(pc)
         pc+=1
 
@@ -217,13 +231,15 @@ while pc<len(temp):
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
         reg[reg1] = MEM[m]
+        fn(pc)
         pc+=1
 
     elif(opcode=="00101"): #st
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
-        MEM[m] = reg[reg1]
+        MEM[m] = "{:016b}".format(reg[reg1])
+        fn(pc)
         pc+=1
 
     elif(opcode == "10011"): #halt
