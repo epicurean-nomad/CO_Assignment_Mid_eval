@@ -2,6 +2,7 @@ import sys
 complete_input = sys.stdin.read()
 temp=[]
 temp2 = ""
+MEM = {}
 
 for char in complete_input:
     if char=='\n':
@@ -32,10 +33,15 @@ def fn(pc):
     print(flag_val)
     pc+=1
 
-j = 0
-while j<len(temp):
-    line = temp[j]
+i = 0
+while i<len(temp):  #loading entire instruction code into Memory
+    MEM[i] = temp[i]
+    i+=1
+    
+while pc<len(temp):
+    line = temp[pc]
     opcode = line[:5]
+    
 
     if(opcode == "00000"): #add
         flags = [0,0,0,0]
@@ -70,7 +76,6 @@ while j<len(temp):
         j = binaryToDecimal(line[8:])
         fn(pc)
         pc = j
-        j+=1
         continue
 
     elif (opcode == "10000"):   #jlt
@@ -79,7 +84,6 @@ while j<len(temp):
             flags = [0,0,0,0]
             fn(pc)
             pc = j
-            j+=1
             continue
         flags = [0,0,0,0]
         fn(pc)
@@ -91,7 +95,6 @@ while j<len(temp):
             flags = [0,0,0,0]
             fn(pc)
             pc = j
-            j+=1
             continue
         flags = [0,0,0,0]
         fn(pc)
@@ -103,7 +106,6 @@ while j<len(temp):
             flags = [0,0,0,0]
             fn(pc)
             pc = j
-            j+=1
             continue
         flags = [0,0,0,0]
         fn(pc)
@@ -213,17 +215,17 @@ while j<len(temp):
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
-        reg[reg1] = #Incomplete: Need to create memory first
+        reg[reg1] = MEM[m]
 
     elif(opcode=="00101"): #st
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
         m = binaryToDecimal(line[8:])
-        #Incomplete: Need to create memory first
+        MEM[m] = reg[reg1]
 
     elif(opcode == "10011"): #halt
         flags = [0,0,0,0]
         fn(pc)
         pc+=1
 
-    j+=1
+
