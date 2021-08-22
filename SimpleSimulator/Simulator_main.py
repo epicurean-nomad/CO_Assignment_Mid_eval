@@ -22,7 +22,6 @@ def binaryToDecimal(n):
     return int(n,2)
 
 def fn(pc):
-    
     print("{:08b}".format(pc), end=" ")
     for i in reg:
         print("{:016b}".format(i), end = " ")
@@ -37,7 +36,7 @@ j = 0
 while j<len(temp):
     line = temp[j]
     opcode = line[:5]
-    
+
     if(opcode == "00000"): #add
         flags = [0,0,0,0]
         reg1 = line[7:10]
@@ -57,7 +56,7 @@ while j<len(temp):
         reg[reg1] = imm_val
         fn(pc)
         pc+=1
-    
+
     elif(opcode=="00011"): #mov reg
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[10:13])
@@ -66,11 +65,11 @@ while j<len(temp):
         fn(pc)
         pc+=1
 
-    elif (opcode == "01111"): #jmp uncd 
+    elif (opcode == "01111"): #jmp uncd
         flags = [0,0,0,0]
         j = binaryToDecimal(line[8:])
         fn(pc)
-        pc+=1
+        pc = j
         j+=1
         continue
 
@@ -79,7 +78,7 @@ while j<len(temp):
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
             fn(pc)
-            pc+=1
+            pc = j
             j+=1
             continue
         flags = [0,0,0,0]
@@ -91,19 +90,19 @@ while j<len(temp):
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
             fn(pc)
-            pc+=1
+            pc = j
             j+=1
             continue
         flags = [0,0,0,0]
         fn(pc)
-        pc+=1    
+        pc+=1
 
     elif (opcode == "10010"): #je
         if flags[3]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
             fn(pc)
-            pc+=1
+            pc = j
             j+=1
             continue
         flags = [0,0,0,0]
@@ -113,6 +112,7 @@ while j<len(temp):
     elif (opcode == "01110"): #cmp
         reg1=line[10:13]
         reg2 = line[13:16]
+        flags = [0,0,0,0]
         if(binaryToDecimal(reg1)>binaryToDecimal(reg2)):
             flags[2]=1
         elif(binaryToDecimal(reg1)==binaryToDecimal(reg2)):
@@ -121,7 +121,7 @@ while j<len(temp):
             flags[1]=1
         fn(pc)
         pc+=1
-    
+
     elif(opcode == "00001"): #sub
         flags = [0,0,0,0]
         reg1 = line[7:10]
@@ -152,17 +152,17 @@ while j<len(temp):
         reg2= line[10:13]
         reg3 = line[13:16]
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]^reg[binaryToDecimal(reg3)]
-        
+
         fn(pc)
         pc+=1
-        
+
     elif(opcode == "01011"): #or
         flags = [0,0,0,0]
         reg1 = line[7:10]
         reg2= line[10:13]
         reg3 = line[13:16]
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]|reg[binaryToDecimal(reg3)]
-        
+
         fn(pc)
         pc+=1
 
@@ -172,25 +172,27 @@ while j<len(temp):
         reg2= line[10:13]
         reg3 = line[13:16]
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]&reg[binaryToDecimal(reg3)]
-        
+
         fn(pc)
         pc+=1
-    
+
     elif (opcode == "00111"): #div
+        flags = [0,0,0,0]
         reg3=line[10:13]
         reg4 = line[13:16]
         reg[0] = reg[binaryToDecimal(reg3)]//reg[binaryToDecimal(reg4)]
         reg[1] = reg[binaryToDecimal(reg3)]%reg[binaryToDecimal(reg4)]
         fn(pc)
         pc+=1
-        
+
     elif (opcode == "01101"): #not
+        flags = [0,0,0,0]
         reg1=line[10:13]
         reg2 = line[13:16]
         reg[binaryToDecimal(reg1)] = ~(reg[binaryToDecimal(reg2)])
         fn(pc)
         pc+=1
-        
+
     elif(opcode=="01001"): #ls
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
@@ -198,7 +200,7 @@ while j<len(temp):
         reg[reg1] = reg[reg1]<<imm_val
         fn(pc)
         pc+=1
-    
+
     elif(opcode=="01000"): #rs
         flags=[0,0,0,0]
         reg1 = binaryToDecimal(line[5:8])
@@ -206,7 +208,19 @@ while j<len(temp):
         reg[reg1] = reg[reg1]>>imm_val
         fn(pc)
         pc+=1
-        
+
+    elif(opcode=="00100"): #ld
+        flags=[0,0,0,0]
+        reg1 = binaryToDecimal(line[5:8])
+        m = binaryToDecimal(line[8:])
+        reg[reg1] = #Incomplete: Need to create memory first
+
+    elif(opcode=="00101"): #st
+        flags=[0,0,0,0]
+        reg1 = binaryToDecimal(line[5:8])
+        m = binaryToDecimal(line[8:])
+        #Incomplete: Need to create memory first
+
     elif(opcode == "10011"): #halt
         flags = [0,0,0,0]
         fn(pc)
