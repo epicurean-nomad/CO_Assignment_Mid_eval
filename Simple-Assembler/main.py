@@ -70,15 +70,18 @@ for line in temp:
     elif lis[0]=="var":
         if var_start!=cc:
             error2=1
-            print("Variables not declared at the beginning")
+            print("Variable at Line {} not declared at the beginning".format(cc))
             break
         var_start+=1
         queue.append(line)
     elif lis[0][-1]==":":
         memory[memory_counter]=[" ".join(lis[1:]) ,"label", lis[0][:-1]]
+        if(not lis[1:]):
+            error2=1
+            print("Invalid instruction in Line {}".format(memory_counter+1+(var_start-1)))
+            break
         if len(lis)>1 and lis[1]=="hlt":
             hlt_counter+=1
-        
         memory_counter+=1
 
     elif lis[0]=="hlt":
@@ -88,9 +91,6 @@ for line in temp:
     else:
         memory[memory_counter]=[line]
         memory_counter+=1   
-
-# if list(memory.values())[-1][0].split()[0]!="hlt" or hlt_counter!=1:
-#     error=1
 
 if hlt_counter==0:
     print("Missing hlt instruction")
@@ -499,7 +499,7 @@ for i in memory.keys():
                     print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
-                ans+=opcodes["rs"]
+                ans+=opcodes["mov_imm"]
                 ans+="{:03b}".format(int(inp[0].split()[1][1]))
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
@@ -523,7 +523,7 @@ for i in memory.keys():
                     print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
-                ans+=opcodes["ls"]
+                ans+=opcodes["mov_imm"]
                 ans+="{:03b}".format(int(inp[0].split()[1][1]))
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
