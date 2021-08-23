@@ -1,4 +1,13 @@
 import sys
+import matplotlib.pyplot as plt
+
+
+# plt.plot([1,2,3,4])
+# plt.ylabel('some numbers')
+# plt.show()
+
+
+
 complete_input = sys.stdin.read()
 temp=[]
 temp2 = ""
@@ -31,7 +40,8 @@ def fn(pc):
     for i in flags:
         flag_val+=str(i)
     print(flag_val)
-    pc+=1
+    
+    
 
 for i in range(len(temp)):  #loading entire instruction code into Memory
     MEM[i] = temp[i]
@@ -39,9 +49,16 @@ for i in range(len(temp)):  #loading entire instruction code into Memory
 for i in range(len(MEM),256): # filling rest of the memory with 0's
     MEM[i] = "0"*16
     
+cycle = -1
+x=[]
+y=[]
+
 while pc<len(temp):
+    cycle+=1
     line = temp[pc]
     opcode = line[:5]
+    x.append(cycle)
+    y.append(pc)
     
 
     if(opcode == "00000"): #add
@@ -50,9 +67,10 @@ while pc<len(temp):
         reg2= line[10:13]
         reg3 = line[13:16]
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]+reg[binaryToDecimal(reg3)]
-        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+        if(reg[binaryToDecimal(reg1)]>=pow(2,16)):
             flags[0]=1
-            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+            chu = "{:0b}".format(reg[binaryToDecimal(reg1)])
+            reg[binaryToDecimal(reg1)] = binaryToDecimal(chu[-16:])
         fn(pc)
         pc+=1
 
@@ -91,7 +109,7 @@ while pc<len(temp):
         continue
 
     elif (opcode == "10000"):   #jlt
-        if flags[1]==1:
+        if flags[3]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
             fn(pc)
@@ -113,7 +131,7 @@ while pc<len(temp):
         pc+=1
 
     elif (opcode == "10010"): #je
-        if flags[3]==1:
+        if flags[1]==1:
             j = binaryToDecimal(line[8:])
             flags = [0,0,0,0]
             fn(pc)
@@ -157,9 +175,9 @@ while pc<len(temp):
         reg2= line[10:13]
         reg3 = line[13:16]
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]*reg[binaryToDecimal(reg3)]
-        if(reg[binaryToDecimal(reg1)]>pow(2,16)):
+        if(reg[binaryToDecimal(reg1)]>=pow(2,16)):
             flags[0]=1
-            reg[binaryToDecimal(reg1)] = pow(2,16)-reg[binaryToDecimal(reg1)]
+            reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg1)]-(pow(2,16))
         fn(pc)
         pc+=1
 
@@ -248,4 +266,10 @@ while pc<len(temp):
         pc+=1
 
 for i in MEM.keys():  # MEM.dump()
-    print(MEM[i], end="\n")
+    print(MEM[i])
+
+plt.plot(x, y)
+plt.xlabel('cycle')
+plt.ylabel('mem_addrr')
+plt.title('wrong mp')
+plt.savefig('graph.png')
