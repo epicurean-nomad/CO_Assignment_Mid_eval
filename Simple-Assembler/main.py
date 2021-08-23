@@ -499,7 +499,7 @@ for i in memory.keys():
                     print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
-                ans+=opcodes["mov_imm"]
+                ans+=opcodes["rs"]
                 ans+="{:03b}".format(int(inp[0].split()[1][1]))
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
@@ -523,7 +523,7 @@ for i in memory.keys():
                     print("Illegal Immediate value at line {}".format(key_count+var_start))
                     error2=1
                     break
-                ans+=opcodes["mov_imm"]
+                ans+=opcodes["ls"]
                 ans+="{:03b}".format(int(inp[0].split()[1][1]))
                 ans+="{:08b}".format(int(inp[0].split()[2][1:]))
                 big_ans.append(ans)
