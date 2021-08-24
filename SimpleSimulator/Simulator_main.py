@@ -177,7 +177,8 @@ while pc<len(temp):
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]*reg[binaryToDecimal(reg3)]
         if(reg[binaryToDecimal(reg1)]>=pow(2,16)):
             flags[0]=1
-            reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg1)]-(pow(2,16))
+            chu = "{:0b}".format(reg[binaryToDecimal(reg1)])
+            reg[binaryToDecimal(reg1)] = binaryToDecimal(chu[-16:])
         fn(pc)
         pc+=1
 
