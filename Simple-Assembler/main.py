@@ -203,7 +203,6 @@ for i in memory.keys():
                 break
         if f == 1:
             break
-        #print(list(memory[i][0].split()))
         if len(list(memory[i][0].split()))==4:
             ans+=opcodes["mul"]+"00"
             ans+="{:03b}".format(int(inp[0].split()[1][1]))
@@ -217,7 +216,7 @@ for i in memory.keys():
 
     elif list(inp[0].split())[index] == "div":
         f = 0
-        for i in range(1,4):
+        for i in range(1,3):
             try:
                 reg_val = int(inp[0].split()[i][1:])
                 if reg_val not in range(7) or inp[0].split()[i][0]!='R':
