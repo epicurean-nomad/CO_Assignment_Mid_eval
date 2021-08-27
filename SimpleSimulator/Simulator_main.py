@@ -168,7 +168,8 @@ while pc<len(temp):
         reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg2)]*reg[binaryToDecimal(reg3)]
         if(reg[binaryToDecimal(reg1)]>=pow(2,16)):
             flags[0]=1
-            reg[binaryToDecimal(reg1)] = reg[binaryToDecimal(reg1)]-(pow(2,16))
+            chu = "{:0b}".format(reg[binaryToDecimal(reg1)])
+            reg[binaryToDecimal(reg1)] = binaryToDecimal(chu[-16:])
         fn(pc)
         pc+=1
 
@@ -215,7 +216,13 @@ while pc<len(temp):
         flags = [0,0,0,0]
         reg1=line[10:13]
         reg2 = line[13:16]
-        reg[binaryToDecimal(reg1)] = ~(reg[binaryToDecimal(reg2)])
+        tat2 = ""
+        for sdf in "{:016b}".format(reg[binaryToDecimal(reg2)]):
+            if sdf=="1":
+                tat2+= "0"
+            else:
+                tat2+= "1"
+        reg[binaryToDecimal(reg1)] = binaryToDecimal(tat2)
         fn(pc)
         pc+=1
 
@@ -224,6 +231,9 @@ while pc<len(temp):
         reg1 = binaryToDecimal(line[5:8])
         imm_val = binaryToDecimal(line[8:16])
         reg[reg1] = reg[reg1]<<imm_val
+        if(reg[(reg1)]>=pow(2,16)):
+            chu = "{:0b}".format(reg[(reg1)])
+            reg[(reg1)] = binaryToDecimal(chu[-16:])
         fn(pc)
         pc+=1
 
@@ -232,6 +242,7 @@ while pc<len(temp):
         reg1 = binaryToDecimal(line[5:8])
         imm_val = binaryToDecimal(line[8:16])
         reg[reg1] = reg[reg1]>>imm_val
+        
         fn(pc)
         pc+=1
 
@@ -264,8 +275,6 @@ while(cycle<256):
     x.append(cycle)
     y.append(cycle)
     cycle+=1
-
-
 
 plt.plot(x, y, c='black')
 plt.xticks(np.arange(min(x), max(x)+1, 25.0))
